@@ -3,10 +3,10 @@
  * The main model which provides a connection to the database.
  * Each DataObject is required to extend from this class.
  */
+
 abstract class abstract_data_object {
 	
-//////////////////////////////Konstanten//////////////////////////////	
-	
+// Declare Constants	
 	const HOST_IP='localhost';
 	const PORT='3306';
 	const USERNAME='root';
@@ -26,7 +26,7 @@ abstract class abstract_data_object {
 	const STUDENT_USERTYPE = 1;
 	const UNKOWN_USERTYPE = 0;
 	
-//////////////////////////////Datenfelder//////////////////////////////
+// Methods
 	protected static $databaseConnection;
 	
 	protected static function hasConnection() {
@@ -56,7 +56,7 @@ abstract class abstract_data_object {
 		$data = mysqli_fetch_array($query);
 		
 		if ($data != null) {
-			$result = array_pop($data);
+			$result = array_pop($data); //Return the last value of an array
 		} else {
 			$result = null;
 		}
@@ -65,7 +65,7 @@ abstract class abstract_data_object {
 	}
 	
 	protected static function getMultipleRecords($sql) {
-		if (self::hasConnection()) return;
+		if (!self::hasConnection()) return; //if hasConnection is false, return immediately
 		
 		$query = mysqli_query(self::$databaseConnection, $sql);
 		$record = mysqli_fetch_assoc($query);
@@ -88,7 +88,16 @@ abstract class abstract_data_object {
 	
 	protected static function randomCode($length){
 		$charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-		$base = strlen($charset);
+		$result='';
+		for ($i = 0; i <$length; $i++) {
+			$rnum1 = Math.floor(Math.random() * $charset.length);
+			$result+= $charset.substring($rnum1, rnum1 + 1);
+		}
+		return $result;
+		
+		
+		/*Option 2: 
+		 * $base = strlen($charset);
 		$result = '';
 	
 		$now = explode(' ', microtime())[1];
@@ -98,7 +107,13 @@ abstract class abstract_data_object {
 			$now /= $base;
 		}
 		return substr($result, -1 * $length);
-	}
+		*/
+	}	
 	
+	protected static function setup_db($sql){
+		if(!self::hasConnection())	return;
+		mysqli_query(self::$databaseConnection, $sql);
+	}
 }
+
 ?>
