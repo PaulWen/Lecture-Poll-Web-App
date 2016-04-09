@@ -88,26 +88,14 @@ abstract class abstract_data_object {
 	
 	protected static function randomCode($length){
 		$charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-		$result='';
-		for ($i = 0; i <$length; $i++) {
-			$rnum1 = Math.floor(Math.random() * $charset.length);
-			$result+= $charset.substring($rnum1, rnum1 + 1);
-		}
-		return $result;
-		
-		
-		/*Option 2: 
-		 * $base = strlen($charset);
 		$result = '';
-	
-		$now = explode(' ', microtime())[1];
-		while ($now >= $base){
-			$i = $now % $base;
-			$result = $charset[$i] . $result;
-			$now /= $base;
+
+		for ($i = 0; $i < $length; $i++) {
+			$randomNumber = floor(mt_rand() % strlen($charset));
+			$result = $result . substr($charset, $randomNumber, 1);
 		}
-		return substr($result, -1 * $length);
-		*/
+		
+		return $result;
 	}	
 	
 	protected static function setup_db($sql){

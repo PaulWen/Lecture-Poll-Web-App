@@ -1,7 +1,7 @@
 Options -MultiViews
 
 RewriteEngine On
-RewriteBase /php%20workspace/Lecture%20Poll%20Web%20App/
+RewriteBase /LecturePoll/
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

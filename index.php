@@ -18,21 +18,24 @@ function errorMessage($errorcode, $errortext, $errorfile, $errorline) {
 	echo "{$errortext}; {$errorfile} -> {$errorline} <br/>";
 }
 
-// either "error" or "errorPage" according to the function that should get called
-set_error_handler("errorMessage");
+// either "errorMessage" or "errorPage" according to the function that should get called
+set_error_handler("errorPage");
 
 
 ///////////////////////load  all nessesary files///////////////////////
 
 require_once 'app/controller/abstract_controller.php';
 require_once 'app/model/abstract_data_object.php';
+require_once 'app/model/poll_data_object.php';
+require_once 'app/model/poll_list_data_object.php';
+require_once 'app/model/rating_list_data_object.php';
 
 
 
 //////////////////Split URL and call the right controller//////////////////
 
 //default controller
-define("DEFAULT_CONTROLLER", "???");
+define("DEFAULT_CONTROLLER", "home");
 define("DEFAULT_DOMAIN", "/LecturePoll/");
 
 // set default values
@@ -69,7 +72,7 @@ $controller = new $controller(array_merge($_GET, $_POST));
 
 // set function
 if (isset($url[1])) {
-	if(method_exists($controller, $url[1]) && $url[1] != "index") {
+	if(method_exists($controller, $url[1])) {
 		$function = $url[1];
 		unset($url[1]);
 	} else {
@@ -88,7 +91,14 @@ if (isset($url)) {
 ////////////////////////Authentication////////////////////////
 // find out the usertype
 $usertype = abstract_data_object::UNKOWN_USERTYPE;
-
+if (isset($_SESSION["pollCode"])) {
+	$pollListDataObject = new poll_list_data_object();
+	if ($pollListDataObject->checkStudentPollCode($_SESSION["pollCode"])) {
+		$usertype = abstract_data_object::STUDENT_USERTYPE;
+	} else if ($pollListDataObject->checkTeacherPollCode($_SESSION["pollCode"])) {
+		$usertype = abstract_data_object::TEACHER_USERTYPE;
+	}
+}
 
 // check, if the user is allowed to access the wanted controller
 if ($controller->authenticate($usertype)) {

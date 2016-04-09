@@ -17,7 +17,7 @@ class poll_data_object extends abstract_data_object {
 		
 		if ($pollListDataObject->checkStudentPollCode($pollCode)) {
 			$sql = "SELECT " . parent::COLUMN_TEACHER_POLL_CODE . " FROM " . parent::TABLE_POLL . "
-			WHERE " . parent::COLUMN_STUDENT_POLL_CODE . " = $pollCode";
+			WHERE " . parent::COLUMN_STUDENT_POLL_CODE . " = '$pollCode'";
 		
 			$this->teacherPollCode = parent::getSingleValue($sql);
 			
@@ -28,44 +28,45 @@ class poll_data_object extends abstract_data_object {
 	
 	public function getPollName() {
 		$sql = "SELECT " . parent::COLUMN_NAME . " FROM " . parent::TABLE_POLL . "
-		WHERE " . parent::COLUMN_TEACHER_POLL_CODE . " = $this->teacherPollCode";
+		WHERE " . parent::COLUMN_TEACHER_POLL_CODE . " = '" . $this->getTeacherPollCode() . "'";
 		
 		return parent::getSingleValue($sql);
 	}
 	
-	public function getNumberOfStudentsGotIt($student_poll_code) {
+	public function getNumberOfStudentsGotIt() {
 		$sql = "SELECT COUNT(" . parent::COLUMN_RATING . ") 
 					FROM " . parent::TABLE_STUDENT_VOTING . " as student_voting1 
 					JOIN
 					(SELECT " . parent::COLUMN_STUDENT_ID . ", MAX(" . parent::COLUMN_DATETIME . ") as datetime  
 						FROM " . parent::TABLE_STUDENT_VOTING . "
-						WHERE student_poll_code = $student_poll_code 
+						WHERE student_poll_code = '" . $this->getStudentPollCode() . "'
 						GROUP BY student_id ORDER BY datetime DESC) as student_voting2
 						ON (student_voting1." . parent::COLUMN_STUDENT_ID . " = student_voting2." . parent::COLUMN_STUDENT_ID . " 
 						AND student_voting1." . parent::COLUMN_DATETIME . " = student_voting2." . parent::COLUMN_DATETIME . ")
-				WHERE " . parent::COLUMN_RATING . " = 0";
+				WHERE " . parent::COLUMN_RATING . " = '0'";
 		
 		return parent::getSingleValue($sql);
 	}
 
-	public function getNumberOfStudentsLost($student_poll_code) {
+	public function getNumberOfStudentsLost() {
 		$sql = "SELECT COUNT(" . parent::COLUMN_RATING . ") 
 					FROM " . parent::TABLE_STUDENT_VOTING . " as student_voting1 
 					JOIN
 					(SELECT " . parent::COLUMN_STUDENT_ID . ", MAX(" . parent::COLUMN_DATETIME . ") as datetime  
 						FROM " . parent::TABLE_STUDENT_VOTING . "
-						WHERE student_poll_code = $student_poll_code GROUP BY student_id 
+						WHERE student_poll_code = '" . $this->getStudentPollCode() . "'
+						GROUP BY student_id 
 						ORDER BY datetime DESC) as student_voting2
 						ON (student_voting1." . parent::COLUMN_STUDENT_ID . " = student_voting2." . parent::COLUMN_STUDENT_ID . "
 						AND student_voting1." . parent::COLUMN_DATETIME . " = student_voting2." . parent::COLUMN_DATETIME . ")
-				WHERE " . parent::COLUMN_RATING . " = 1";
+				WHERE " . parent::COLUMN_RATING . " = '1'";
 		
 		return parent::getSingleValue($sql);
 	}
 	
 	public function getStudentPollCode() {
 		$sql = "SELECT " . parent::COLUMN_STUDENT_POLL_CODE . " FROM " . parent::TABLE_POLL . "
-				WHERE " . parent::COLUMN_TEACHER_POLL_CODE . " = $this->teacherPollCode";
+				WHERE " . parent::COLUMN_TEACHER_POLL_CODE . " = '$this->teacherPollCode'";
 	
 		return parent::getSingleValue($sql);
 	}

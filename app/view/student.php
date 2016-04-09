@@ -58,13 +58,4 @@
 	 	</div>
     </div>
   </body>
-  
-  <script type="text/javascript">
-
-	function test() {
-		alert("hey");
-	}
-		
-  </script>
-  
 </html>

@@ -46,6 +46,6 @@ abstract class abstract_controller {
 	 *        	name of the screen
 	 */
 	protected function loadView($screen) {
-		require_once 'app/view/screens/' . $screen . '.php';
+		require_once 'app/view/' . $screen . '.php';
 	}
 }

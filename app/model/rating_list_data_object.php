@@ -13,7 +13,6 @@ class rating_list_data_object extends abstract_data_object {
 	 * @param int $studentRating
 	 */
 	public function createNewRating($studentId, $pollCode, $studentRating) {
-		
 		// check if student already as an student id stored in the session data
 		// If student hasn't been assigned an ID yet, create a new one
 		if ($studentId == null) {
@@ -22,7 +21,7 @@ class rating_list_data_object extends abstract_data_object {
 		
 		// add rating to the database
 		$sql = "INSERT INTO " . parent::TABLE_STUDENT_VOTING . " (" . parent::COLUMN_STUDENT_ID . ", " . parent::COLUMN_STUDENT_POLL_CODE . ", " . parent::COLUMN_RATING . ")
-		VALUES ($studentId, $pollCode, $studentRating)";
+		VALUES ('$studentId', '$pollCode', '$studentRating')";
 		
 		parent::insertRecord($sql);
 		
@@ -42,7 +41,7 @@ class rating_list_data_object extends abstract_data_object {
 	
 	private function isStudentId($studentId) {
 		$sql = "SELECT " . parent::COLUMN_STUDENT_ID . " FROM " . parent::TABLE_STUDENT_VOTING . "
-		WHERE " . parent::COLUMN_STUDENT_ID . " = $studentId";
+		WHERE " . parent::COLUMN_STUDENT_ID . " = '$studentId'";
 	
 		$result = parent::getSingleValue($sql);
 		
