@@ -64,20 +64,20 @@ abstract class abstract_data_object {
 		return $result;
 	}
 	
+	
 	protected static function getMultipleRecords($sql) {
 		if (!self::hasConnection()) return; //if hasConnection is false, return immediately
 		
-		$query = mysqli_query(self::$databaseConnection, $sql);
-		$record = mysqli_fetch_assoc($query);
-		
+		$result = mysqli_query(self::$databaseConnection, $sql);//delete var point to result of mysqli_fetch_assoc
+					
 		$i = 0;
-		$result = array();
-		while($record = mysqli_fetch_assoc($query)) {
-			$result[$i] = $record;
+		$records = array();
+		while($record = mysqli_fetch_assoc($result)) {
+			$records[$i] = $record;
 			$i++;
 		}
 		
-		return $result;
+		return $records;
 	}
 	
 	protected static function insertRecord($sql) {
