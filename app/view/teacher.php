@@ -76,6 +76,16 @@
 			</div>
 		</div>
 		
+		
+		<div class="row">
+			<div class="col-xs-12">
+				<form action="Check how to call method of a class?" method="post">
+					<button type="button" class="btn btn-info btn-lg" >Download</button>
+				</form>
+			</div>
+		</div>
+		
+						
 		<div class="row">
     	<form action="teacher" method="post">
 	      	<div class="col-xs-12">

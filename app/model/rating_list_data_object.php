@@ -20,8 +20,7 @@ class rating_list_data_object extends abstract_data_object {
 		}
 		
 		// add rating to the database
-		$sql = "INSERT INTO " . parent::TABLE_STUDENT_VOTING . " (" . parent::COLUMN_STUDENT_ID . ", " . parent::COLUMN_STUDENT_POLL_CODE . ", " . parent::COLUMN_RATING . ")
-		VALUES ('$studentId', '$pollCode', '$studentRating')";
+		$sql = "INSERT INTO `" . parent::TABLE_STUDENT_VOTING . "` (`" . parent::COLUMN_STUDENT_ID . "`, `" . parent::COLUMN_STUDENT_POLL_CODE . "`, `" . parent::COLUMN_RATING . "`) VALUES ('$studentId', '$pollCode', '$studentRating')";
 		
 		parent::insertRecord($sql);
 		
@@ -40,8 +39,7 @@ class rating_list_data_object extends abstract_data_object {
 	}
 	
 	private function isStudentId($studentId) {
-		$sql = "SELECT " . parent::COLUMN_STUDENT_ID . " FROM " . parent::TABLE_STUDENT_VOTING . "
-		WHERE " . parent::COLUMN_STUDENT_ID . " = '$studentId'";
+		$sql = "SELECT `" . parent::COLUMN_STUDENT_ID . "` FROM `" . parent::TABLE_STUDENT_VOTING . "` WHERE `" . parent::COLUMN_STUDENT_ID . "` = '$studentId'";
 	
 		$result = parent::getSingleValue($sql);
 		

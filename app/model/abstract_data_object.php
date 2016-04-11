@@ -56,7 +56,7 @@ abstract class abstract_data_object {
 		$data = mysqli_fetch_array($query);
 		
 		if ($data != null) {
-			$result = array_pop($data); //Return the last value of an array
+			$result = array_pop($data);
 		} else {
 			$result = null;
 		}
@@ -98,10 +98,7 @@ abstract class abstract_data_object {
 		return $result;
 	}	
 	
-	protected static function setup_db($sql){
-		if(!self::hasConnection())	return;
-		mysqli_query(self::$databaseConnection, $sql);
-	}
+	
 }
 
 ?>
