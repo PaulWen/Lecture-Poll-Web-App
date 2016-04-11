@@ -68,11 +68,11 @@ abstract class abstract_data_object {
 	protected static function getMultipleRecords($sql) {
 		if (!self::hasConnection()) return; //if hasConnection is false, return immediately
 		
-		$result = mysqli_query(self::$databaseConnection, $sql);//delete var point to result of mysqli_fetch_assoc
+		$result = mysqli_query(self::$databaseConnection, $sql);
 					
 		$i = 0;
 		$records = array();
-		while($record = mysqli_fetch_assoc($result)) {
+		while($record = mysqli_fetch_array($result, MYSQLI_NUM)) {
 			$records[$i] = $record;
 			$i++;
 		}

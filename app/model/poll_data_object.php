@@ -74,4 +74,35 @@ class poll_data_object extends abstract_data_object {
 	public function getTeacherPollCode() {
 		return $this->teacherPollCode;
 	}
+	
+	public function downloadResult(){
+		// output headers so that the file is downloaded rather than displayed
+		header('Content-Type: text/csv; charset=utf-8');
+		header('Content-Disposition: attachment; filename=data.csv');
+		
+		// create a file pointer connected to the output stream
+		$output = fopen('php://output', 'w');
+		
+		// output the column headings
+		fputcsv($output, array('Teacher Code', 'Poll Name', 'Voter ID', 'Time', 'Rating'));
+		
+		//Extract data from db including: Teacher code, Poll name, student id, datetime, voting
+		$sql = "SELECT poll.teacher_poll_code, poll.name,student_voting.student_id, student_voting.datetime, student_voting.rating" . 
+				"FROM poll JOIN student_voting on poll.student_poll_code = student_voting.student_poll_code" . 
+				"WHERE poll.teacher_poll_code" . " = ". "$this->teacherPollCode";
+		$records = parent::getMultipleRecords($sql);
+		
+		foreach($records as $row){
+			if($row[4]=='0'){
+				$row[4] = 'I got it';
+			}else if ($row[4] =='1'){
+				$row[4] = 'I lost it';
+			}else{
+				$row[4] = 'undefined';
+			}
+				
+			fputcsv($output,$row);
+		}
+	}
+		
 }
