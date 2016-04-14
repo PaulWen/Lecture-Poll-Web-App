@@ -76,10 +76,10 @@
 			</div>
 		</div>
 		
-		
+		<!-- Dont know how to link button click event with invoking function download -->
 		<div class="row">
 			<div class="col-xs-12">
-				<form action="Check how to call method of a class?" method="post">
+				<form action= "" method="post">
 					<button type="button" class="btn btn-info btn-lg" >Download</button>
 				</form>
 			</div>

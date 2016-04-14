@@ -53,28 +53,33 @@ class poll_data_object extends abstract_data_object {
 		return $this->teacherPollCode;
 	}
 	
-	public function downloadResult(){
+	public function downloadResult($pollname){
 		// output headers so that the file is downloaded rather than displayed
 		header('Content-Type: text/csv; charset=utf-8');
-		header('Content-Disposition: attachment; filename=result.csv');
+		header('Content-Disposition: attachment; filename="$pollname" . "." . "csv"');
 		
 		// create a file pointer connected to the output stream
 		$output = fopen('php://output', 'w');
 		
 		// output the column headings
-		fputcsv($output, array('Teacher Code', 'Poll Name', 'Voter ID', 'Time', 'Rating'));
+		fputcsv($output, array('Voter ID', 'Time', 'Rating'));
 		
-		$sql = "SELECT " . parent::TABLE_POLL . "." . parent::COLUMN_TEACHER_POLL_CODE . ", " . parent::TABLE_POLL . "." . parent::COLUMN_NAME . ", " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_STUDENT_ID . ", " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_DATETIME . ", " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_RATING . " FROM " . parent::TABLE_POLL . " JOIN " . parent::TABLE_STUDENT_VOTING . " ON " . parent::TABLE_POLL . "." . parent::COLUMN_STUDENT_POLL_CODE . " = " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_STUDENT_POLL_CODE . " WHERE " . parent::TABLE_POLL . "." . parent::COLUMN_TEACHER_POLL_CODE . " =  '$this->teacherPollCode'";
+		$sql = "SELECT " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_STUDENT_ID . ", " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_DATETIME . ", " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_RATING . " FROM " . parent::TABLE_POLL . " JOIN " . parent::TABLE_STUDENT_VOTING . " ON " . parent::TABLE_POLL . "." . parent::COLUMN_STUDENT_POLL_CODE . " = " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_STUDENT_POLL_CODE . " WHERE " . parent::TABLE_POLL . "." . parent::COLUMN_TEACHER_POLL_CODE . " =  '$this->teacherPollCode'";
 		
+		/** If want data output in the format "Teacher Code', 'Poll Name', 'Voter ID', 'Time', 'Rating'
+		 *fputcsv($output, array('Teacher Code', 'Poll Name', 'Voter ID', 'Time', 'Rating'));
+		 *$sql = "SELECT " . parent::TABLE_POLL . "." . parent::COLUMN_TEACHER_POLL_CODE . ", " . parent::TABLE_POLL . "." . parent::COLUMN_NAME . ", " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_STUDENT_ID . ", " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_DATETIME . ", " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_RATING . " FROM " . parent::TABLE_POLL . " JOIN " . parent::TABLE_STUDENT_VOTING . " ON " . parent::TABLE_POLL . "." . parent::COLUMN_STUDENT_POLL_CODE . " = " . parent::TABLE_STUDENT_VOTING . "." . parent::COLUMN_STUDENT_POLL_CODE . " WHERE " . parent::TABLE_POLL . "." . parent::COLUMN_TEACHER_POLL_CODE . " =  '$this->teacherPollCode'";
+		 */
+				
 		$records = parent::getMultipleRecords($sql);
 		
 		foreach($records as $row){
-			if($row[4]=='0'){
-				$row[4] = 'I got it';
-			}else if ($row[4] =='1'){
-				$row[4] = 'I lost it';
+			if($row[2]=='0'){
+				$row[2] = 'I got it';
+			}else if ($row[2] =='1'){
+				$row[2] = 'I lost it';
 			}else{
-				$row[4] = 'undefined';
+				$row[2] = 'undefined';
 			}
 				
 			fputcsv($output,$row);
