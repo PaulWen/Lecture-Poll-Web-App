@@ -10,6 +10,7 @@
 
     <!-- Bootstrap -->
     <link href="res/css/bootstrap.min.css" rel="stylesheet">
+    
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,37 +26,53 @@
   </head>
   
   <body>
-  	<?php 
-  		$poll_data = new poll_data_object($_SESSION["pollCode"]);
-  	?>
-  
+  	
+ 
     <div class="container">
+     <div style="width:60%;" class="col-xs-offset-2">
        <div class="row">
-      	<div class="col-xs-12">
-	      <h1 class="text-center">Please vote...</h1>
-      	</div>
+       <br>
+       		<h1 class="text-center col-xs-offset-1">C3003 Mo (11.04.)</h1>
+      		<div class="col-xs-offset-5 col-xs-4">
+      			<?php 
+      			if(isset($_POST['rating'])){
+      				$rating=$_POST['rating'];
+      			}else{
+      				$rating=1;
+      			}
+      			if($rating==1){
+	       			echo '<img src="img/got_it.jpg" class="img-responsive" alt="I got it!">';
+	    		} else {
+	    			echo '<img src="img/lost.jpg" class="img-responsive" alt="I am lost">';
+	    		}
+	      		?> 
+      		</div>
 	 	</div>
+	 <br>
      <div class="row">
-     	<form onsubmit="$.post('student/rate', {'rating':0});" method="post">
-	      	<div class="col-xs-5">
+     	<form method="post">
+	      	<div class="col-xs-5 col-xs-offset-1">
+	      		<input name="rating" type="hidden" value="1">
 	      		<button type="submit" class="btn btn-success btn-lg btn-block">I got it!</button>
 	      	</div>
      	</form>
-     	<form onsubmit="$.post('student/rate', {'rating':1});" method="post">
-	      	<div class="col-xs-5 col-xs-offset-2">
+     	<form method="post">
+	      	<div class="col-xs-5 col-xs-offset-1">
+	      	<input name="rating" type="hidden" value="0">
 	      		<button type="submit" class="btn btn-danger btn-lg btn-block">I am lost!</button>
 	      	</div>
      	</form>
      </div>
-       <div class="row">
-      	<div class="col-xs-12">
-	      <h3 class="text-left">Poll Information</h3>
-	      <p>
-	      	Poll Name: <?php echo $poll_data->getPollName();?><br/>
-	      	Student Poll Code: <?php echo $poll_data->getStudentPollCode();?>
-	      </p>
-      	</div>
-	 	</div>
+    </div>
     </div>
   </body>
+  
+  <script type="text/javascript">
+
+	function test() {
+		alert("hey");
+	}
+		
+  </script>
+  
 </html>
