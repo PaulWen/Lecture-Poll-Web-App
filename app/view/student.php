@@ -41,9 +41,9 @@
       				$rating=1;
       			}
       			if($rating==1){
-	       			echo '<img src="img/got_it.jpg" class="img-responsive" alt="I got it!">';
+	       			echo '<img src="res/img/got_it.jpg" class="img-responsive" alt="I got it!">';
 	    		} else {
-	    			echo '<img src="img/lost.jpg" class="img-responsive" alt="I am lost">';
+	    			echo '<img src="res/img/lost.jpg" class="img-responsive" alt="I am lost">';
 	    		}
 	      		?> 
       		</div>
