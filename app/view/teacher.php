@@ -23,35 +23,84 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="res/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<style type="text/css">
+${demo.css}
+		</style>
+		<script type="text/javascript">
+		$(function() {
+			  $('#container').highcharts({
+			    chart: {
+			      type: 'bar'
+			    },
+			    title: {
+			      text: 'Graph of Students Mood'
+			    },
+			    xAxis: {
+			      categories: [""] 
+			    },
+			    yAxis: {
+			      min: 0,
+			      title: {
+			        text: ''
+			      }
+			    },
+			    legend: {
+			      reversed: true
+			    },
+			    plotOptions: {
+			      series: {
+			        stacking: 'normal'
+			      }
+			    },
+			    series: [{
+			      name: 'I got it',
+			      data: [10] 
+			    }, {
+			      name: 'I am lost',
+			      data: [5] 
+			    }]
+			  });
+			});
+
+		</script>
 </head>
 
 <body>
-	<?php 
-		$poll_data = new poll_data_object($_SESSION["pollCode"]);
-	?>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
 				<h1 class="text-center">Teacher View for "<?php echo $poll_data->getPollName();?>"</h1>
 			</div>
 		</div>
+		
+	<p style="text-align:center; margin-top:5px; margin-bottom:15px;"> <img alt="Smile" src="smile.jpg"></p>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+	<div id="container" style="min-width: 310px; max-width: 800px; height: 350px; margin: 0 auto"></div><!-- display bar chart -->
+	
+	<hr style="border-width: 1px 1px 0; border-style:solid;	border-color:GREY; margin-top:1cm; margin-bottom:1cm; width:80%;">
+	
+	<?php 
+		$poll_data = new poll_data_object($_SESSION["pollCode"]);
+	?>
+	
 		<div class="row">
 			<div class="col-xs-12">
-				<h3 class="text-left">I got it!</h3>
-				<p class="text-left"><?php echo $poll_data->getNumberOfStudentsGotIt(); ?></p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12">
-				<h3 class="text-left">I am lost!</h3>
-				<p class="text-left"><?php echo $poll_data->getNumberOfStudentsLost(); ?></p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12">
-				<button type="button" class="btn btn-info btn-lg"
+				<p class="text-center">
+				<button type="button" class="btn btn-info btn-lg" style="background-color:#2B547E; 
+				border-color:#2B547E; width:40%;"
 					data-toggle="modal" data-target="#myModal">Poll Codes</button>
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<p class="text-center">
+				<button type="button" class="btn btn-info btn-lg" style="background-color:#646D7E; 
+			border-color:#646D7E; width:40%;">Download Data</button>
+				</p>
 			</div>
 		</div>
 
@@ -76,13 +125,11 @@
 			</div>
 		</div>
 		
-		<div class="row">
-    	<form action="teacher" method="post">
-	      	<div class="col-xs-12">
-				<button type="submit" class="btn btn-primary btn-lg btn-block">Refresh</button>
-		    </div>
-   		</form>
-      </div>
+		<!-- Dont know how to link button click event with invoking function download -->
+		
+		
+						
+		
 
 	</div>
 </body>

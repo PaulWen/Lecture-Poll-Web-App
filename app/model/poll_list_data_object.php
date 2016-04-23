@@ -12,8 +12,7 @@ class poll_list_data_object extends abstract_data_object {
 	 * Return false: otherwise
 	 */
 	public function checkTeacherPollCode($pollCode) {
-		$sql = "SELECT `" . parent::COLUMN_TEACHER_POLL_CODE . "` FROM `" . parent::TABLE_POLL . "`
-		WHERE `" . parent::COLUMN_TEACHER_POLL_CODE . "` = '$pollCode'";
+		$sql = "SELECT `" . parent::COLUMN_TEACHER_POLL_CODE . "` FROM `" . parent::TABLE_POLL . "` WHERE `" . parent::COLUMN_TEACHER_POLL_CODE . "` = '$pollCode'";
 		
 		$result = parent::getSingleValue($sql);
 		
@@ -30,8 +29,7 @@ class poll_list_data_object extends abstract_data_object {
 	 * Return false: otherwise
 	 */
 	public function checkStudentPollCode($pollCode) {
-		$sql = "SELECT `" . parent::COLUMN_STUDENT_POLL_CODE . "` FROM `" . parent::TABLE_POLL . "`
-		WHERE `" . parent::COLUMN_STUDENT_POLL_CODE . "` = '$pollCode'";
+		$sql = "SELECT `" . parent::COLUMN_STUDENT_POLL_CODE . "` FROM `" . parent::TABLE_POLL . "` WHERE `" . parent::COLUMN_STUDENT_POLL_CODE . "` = '$pollCode'";
 		
 		$result = parent::getSingleValue($sql);
 		
@@ -62,8 +60,7 @@ class poll_list_data_object extends abstract_data_object {
 		}
 		
 		// add new poll to the database
-		$sql = "INSERT INTO `" . parent::TABLE_POLL . "` (`" . parent::COLUMN_TEACHER_POLL_CODE . "`, `" . parent::COLUMN_STUDENT_POLL_CODE . "`, `" . parent::COLUMN_NAME . "`)
-		VALUES ('$teacherPollCode', '$studentPollCode', '$pollName')";
+		$sql = "INSERT INTO `" . parent::TABLE_POLL . "` (`" . parent::COLUMN_TEACHER_POLL_CODE . "`, `" . parent::COLUMN_STUDENT_POLL_CODE . "`, `" . parent::COLUMN_NAME . "`) VALUES ('$teacherPollCode', '$studentPollCode', '$pollName')";
 		parent::insertRecord($sql);
 		
 		// return the teacher poll code of the just created poll
