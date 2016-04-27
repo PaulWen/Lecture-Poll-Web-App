@@ -21,6 +21,10 @@
 	background-color:rgba(255, 255, 255, 0.8);
 	width:50%;
 	height:100%;
+	padding:1.5em;
+}
+.form-panel{
+	overflow:hidden;
 }
 .subtitle {
   margin: 0 0 1em 0;
@@ -31,8 +35,8 @@
 }
 .fancy span {
   display: inline-block;
-  position: relative;  
-  
+  position: absolute;  
+  left:30%;
 }
 
 .fancy span:before,
@@ -48,7 +52,6 @@
 }
 .login span {
 	color:#3058A7;
-	right:1.5em;
 }
 .create span:before,
 .create span:after {
@@ -66,14 +69,14 @@
   	margin-left: 5px;
 }
 .login span:before {
-	width: 115px;
+	width: 200px;
 }
 .login span:after {
-	width: 385px;
+	width: 500px;
 }
 .create span:before {
-	width: 120px;
+	width: 200px;
 }
 .create span:after {
-	width: 320px;
+	width: 500px;
 }
