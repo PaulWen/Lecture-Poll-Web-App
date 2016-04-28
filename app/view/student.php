@@ -26,39 +26,32 @@
   </head>
   
   <body>
-  	
+  	<?php 
+  		$poll_data = new poll_data_object($_SESSION["pollCode"]);
+  	?>
  
     <div class="container">
-     <div style="width:60%;" class="col-xs-offset-2">
+     <div style="width:60%;" class="col-xs-10 col-xs-offset-2">
        <div class="row">
+      		<div class="col-xs-offset-4 col-xs-4">
        <br>
-       		<h1 class="text-center col-xs-offset-1">C3003 Mo (11.04.)</h1>
-      		<div class="col-xs-offset-5 col-xs-4">
-      			<?php 
-      			if(isset($_POST['rating'])){
-      				$rating=$_POST['rating'];
-      			}else{
-      				$rating=1;
-      			}
-      			if($rating==1){
-	       			echo '<img src="res/img/got_it.jpg" class="img-responsive" alt="I got it!">';
-	    		} else {
-	    			echo '<img src="res/img/lost.jpg" class="img-responsive" alt="I am lost">';
-	    		}
-	      		?> 
+      		</div>
+      		</div>
+       		<h1 class="text-center col-xs-offset-1"><?php echo $poll_data->getPollName(); ?></h1>
+       <div class="row">
+      		<div class="col-xs-offset-4 col-xs-4">
+      			<img id="current_status" src="res/img/happy_smiley.jpg" class="img-responsive" alt="I got it!">
       		</div>
 	 	</div>
 	 <br>
      <div class="row">
-     	<form method="post">
-	      	<div class="col-xs-5 col-xs-offset-1">
-	      		<input name="rating" type="hidden" value="1">
+     	<form onsubmit="submit_rating(0); return false;">
+	      	<div class="col-xs-5">
 	      		<button type="submit" class="btn btn-success btn-lg btn-block">I got it!</button>
 	      	</div>
      	</form>
-     	<form method="post">
-	      	<div class="col-xs-5 col-xs-offset-1">
-	      	<input name="rating" type="hidden" value="0">
+     	<form onsubmit="submit_rating(1); return false;">
+	      	<div class="col-xs-5 col-xs-offset-2">
 	      		<button type="submit" class="btn btn-danger btn-lg btn-block">I am lost!</button>
 	      	</div>
      	</form>
@@ -66,13 +59,20 @@
     </div>
     </div>
   </body>
-  
-  <script type="text/javascript">
-
-	function test() {
-		alert("hey");
-	}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			submit_rating(0);
+		});
 		
-  </script>
-  
+		function submit_rating(value){
+		    $.post('student/rate', {'rating':value});
+
+		    if (value == 0) {
+		    	$("#current_status").attr("src", "res/img/happy_smiley.jpg");
+		    } else {
+		    	$("#current_status").attr("src", "res/img/sad_smiley.jpg");
+			}    
+		}
+	</script>
 </html>
+

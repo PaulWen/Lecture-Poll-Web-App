@@ -30,8 +30,6 @@ require_once 'app/model/poll_data_object.php';
 require_once 'app/model/poll_list_data_object.php';
 require_once 'app/model/rating_list_data_object.php';
 
-
-
 //////////////////Split URL and call the right controller//////////////////
 
 //default controller

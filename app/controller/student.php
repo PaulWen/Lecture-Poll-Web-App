@@ -25,7 +25,6 @@ class student extends abstract_controller {
 		if (isset($_SESSION["studentId"])) {
 			$ratingList->createNewRating($_SESSION["studentId"], $_SESSION["pollCode"], $_POST["rating"]);			
 		} else {
-			alert();
 			$_SESSION["studentId"] = $ratingList->createNewRating(null, $_SESSION["pollCode"], $_POST["rating"]);			
 		}
 		
