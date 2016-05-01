@@ -21,6 +21,7 @@ abstract class abstract_data_object {
 	const COLUMN_STUDENT_POLL_CODE ='student_poll_code';
 	const COLUMN_DATETIME ='datetime';
 	const COLUMN_RATING ='rating';
+	const COLUMN_CLOSED ='closed';
 
 	const TEACHER_USERTYPE = 2;
 	const STUDENT_USERTYPE = 1;
@@ -81,6 +82,12 @@ abstract class abstract_data_object {
 	}
 	
 	protected static function insertRecord($sql) {
+		if (!self::hasConnection()) return;
+		
+		mysqli_query(self::$databaseConnection, $sql);
+	}
+
+	protected static function updateRecord($sql) {
 		if (!self::hasConnection()) return;
 		
 		mysqli_query(self::$databaseConnection, $sql);

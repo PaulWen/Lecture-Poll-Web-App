@@ -29,4 +29,13 @@ class teacher extends abstract_controller {
 		
 		echo $poll_data->getNumberOfStudentsGotIt() . "," . $poll_data->getNumberOfStudentsLost();
 	}
+
+	public function closePoll() {
+		// close poll
+		$pollListDataObject = new poll_list_data_object();
+		$pollListDataObject->closePoll($_SESSION ["pollCode"]);
+		
+		// redirect to home page
+		header("Location: " . DEFAULT_DOMAIN);
+	}
 }

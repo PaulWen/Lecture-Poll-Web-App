@@ -77,9 +77,19 @@
 			<div class="col-xs-12">
 				<p class="text-center">
 					<button onClick="window.open('teacher/downloadCsvFile','Download');" type="button" class="btn btn-info btn-lg"
-						style="background-color: #646D7E; border-color: #646D7E; width: 70%;">Download
+						style="background-color: #2B547E; border-color: #2B547E; width: 70%;">Download
 						Data</button>
 				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<form action="teacher/closePoll" method="post">
+					<p class="text-center">
+						<button type="submit" class="btn btn-info btn-lg"
+							style="background-color: #646D7E; border-color: #646D7E; width: 70%;">Close Poll</button>
+					</p>
+				</form>
 			</div>
 		</div>
 

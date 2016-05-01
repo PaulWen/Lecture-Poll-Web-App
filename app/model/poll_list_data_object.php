@@ -12,7 +12,7 @@ class poll_list_data_object extends abstract_data_object {
 	 * Return false: otherwise
 	 */
 	public function checkTeacherPollCode($pollCode) {
-		$sql = "SELECT `" . parent::COLUMN_TEACHER_POLL_CODE . "` FROM `" . parent::TABLE_POLL . "` WHERE `" . parent::COLUMN_TEACHER_POLL_CODE . "` = '$pollCode'";
+		$sql = "SELECT `" . parent::COLUMN_TEACHER_POLL_CODE . "` FROM `" . parent::TABLE_POLL . "` WHERE `" . parent::COLUMN_TEACHER_POLL_CODE . "` = '$pollCode'  AND `" . parent::COLUMN_CLOSED . "` = '0'";
 		
 		$result = parent::getSingleValue($sql);
 		
@@ -29,7 +29,7 @@ class poll_list_data_object extends abstract_data_object {
 	 * Return false: otherwise
 	 */
 	public function checkStudentPollCode($pollCode) {
-		$sql = "SELECT `" . parent::COLUMN_STUDENT_POLL_CODE . "` FROM `" . parent::TABLE_POLL . "` WHERE `" . parent::COLUMN_STUDENT_POLL_CODE . "` = '$pollCode'";
+		$sql = "SELECT `" . parent::COLUMN_STUDENT_POLL_CODE . "` FROM `" . parent::TABLE_POLL . "` WHERE `" . parent::COLUMN_STUDENT_POLL_CODE . "` = '$pollCode' AND `" . parent::COLUMN_CLOSED . "` = '0'";
 		
 		$result = parent::getSingleValue($sql);
 		
@@ -65,6 +65,13 @@ class poll_list_data_object extends abstract_data_object {
 		
 		// return the teacher poll code of the just created poll
 		return $teacherPollCode;
+	}
+	
+	public function closePoll($pollCode) {
+		// close poll
+		$sql = "UPDATE `" . parent::TABLE_POLL . "` SET `" . parent::COLUMN_CLOSED . "` = '1' WHERE `" . parent::COLUMN_TEACHER_POLL_CODE . "` = '$pollCode'";
+
+		parent::updateRecord($sql);
 	}
 	
 	
