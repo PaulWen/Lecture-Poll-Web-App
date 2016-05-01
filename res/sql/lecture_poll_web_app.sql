@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 11. Apr 2016 um 09:52
+-- Erstellungszeit: 01. Mai 2016 um 12:49
 -- Server-Version: 5.6.26
 -- PHP-Version: 5.5.28
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Datenbank: `lecture_poll_web_app`
 --
+CREATE DATABASE IF NOT EXISTS `lecture_poll_web_app` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `lecture_poll_web_app`;
 
 -- --------------------------------------------------------
 
@@ -28,23 +30,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `poll` (
   `name` varchar(25) COLLATE utf8_bin NOT NULL,
+  `closed` tinyint(1) NOT NULL DEFAULT '0',
   `teacher_poll_code` varchar(5) COLLATE utf8_bin NOT NULL,
   `student_poll_code` varchar(5) COLLATE utf8_bin NOT NULL,
   `datetime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Daten für Tabelle `poll`
---
-
-INSERT INTO `poll` (`name`, `teacher_poll_code`, `student_poll_code`, `datetime`) VALUES
-('Test', 'OxlHD', 'oPkZx', '2016-04-09 12:38:47'),
-('as', 'Qp2mz', 'zrtoR', '2016-04-09 12:04:41'),
-('as', 'Zi3ZM', 'B4tFq', '2016-04-09 12:08:30'),
-('as', 'eMHXM', 'Nlh7R', '2016-04-09 12:06:51'),
-('as', 'hMJ4E', '1Saia', '2016-04-09 12:06:27'),
-('Try', 'mwRvv', 'JcBYx', '2016-04-09 11:59:12'),
-('test', 'tvpSj', 'LW2uX', '2016-04-09 10:43:10');
 
 -- --------------------------------------------------------
 
@@ -58,18 +48,6 @@ CREATE TABLE IF NOT EXISTS `student_voting` (
   `rating` int(11) NOT NULL,
   `student_poll_code` varchar(5) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Daten für Tabelle `student_voting`
---
-
-INSERT INTO `student_voting` (`student_id`, `datetime`, `rating`, `student_poll_code`) VALUES
-('amjL7', '2016-04-09 12:34:57', 0, 'B4tFq'),
-('amjL7', '2016-04-09 12:34:59', 0, 'B4tFq'),
-('amjL7', '2016-04-09 12:36:16', 1, 'B4tFq'),
-('amjL7', '2016-04-09 12:36:18', 1, 'B4tFq'),
-('amjL7', '2016-04-09 12:36:19', 1, 'B4tFq'),
-('amjL7', '2016-04-09 12:36:20', 1, 'B4tFq');
 
 --
 -- Indizes der exportierten Tabellen
