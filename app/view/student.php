@@ -33,11 +33,11 @@
     <div class="container">
      <div style="width:60%;" class="col-xs-10 col-xs-offset-2">
        <div class="row">
-      		<div class="col-xs-offset-4 col-xs-4">
+      		<div class="col-xs-12">
        <br>
       		</div>
       		</div>
-       		<h1 class="text-center col-xs-offset-1"><?php echo $poll_data->getPollName(); ?></h1>
+       		<h1 class="text-center"><?php echo $poll_data->getPollName(); ?></h1>
        <div class="row">
       		<div class="col-xs-offset-4 col-xs-4">
       			<img id="current_status" src="res/img/happy_smiley.jpg" class="img-responsive" alt="I got it!">

@@ -38,24 +38,15 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<h1 class="text-center">Teacher View for "<?php echo $poll_data->getPollName();?>"</h1>
+				<h1 class="text-center"><?php echo $poll_data->getPollName();?></h1>
 			</div>
 		</div>
 
 		<div class="row" style="margin-top:15px">
 			<div class="col-xs-2 col-xs-offset-5">
-				<?php
-				if (($poll_data->getNumberOfStudentsGotIt() >= 0 && $poll_data->getNumberOfStudentsLost() == 0) || $poll_data->getNumberOfStudentsGotIt() / ($poll_data->getNumberOfStudentsGotIt() + $poll_data->getNumberOfStudentsLost()) > 0.85) {
-					?>
-						<img class="img-responsive center-block" alt="Happy" src="res/img/happy_smiley.jpg">
-			  <?php } else if ($poll_data->getNumberOfStudentsGotIt() != 0 && $poll_data->getNumberOfStudentsLost() != 0 && $poll_data->getNumberOfStudentsGotIt() / ($poll_data->getNumberOfStudentsGotIt() + $poll_data->getNumberOfStudentsLost()) > 0.5) { ?>
-						<img class="img-responsive center-block" alt="Neutral" src="res/img/neutral_smiley.jpg">
-			  <?php } else { ?>
-						<img class="img-responsive center-block" alt="Sad" src="res/img/sad_smiley.jpg">
-			  <?php
-					}
-			
-				?>
+				<img id="happy" class="img-responsive center-block" alt="Happy" src="res/img/happy_smiley.jpg" style="display:none">
+				<img id="neutral" class="img-responsive center-block" alt="Neutral" src="res/img/neutral_smiley.jpg" style="display:none">
+				<img id="sad" class="img-responsive center-block" alt="Sad" src="res/img/sad_smiley.jpg" style="display:none">
 			</div>
 		</div>
 
@@ -85,7 +76,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<p class="text-center">
-					<button type="button" class="btn btn-info btn-lg"
+					<button onClick="window.open('teacher/downloadCsvFile','Download');" type="button" class="btn btn-info btn-lg"
 						style="background-color: #646D7E; border-color: #646D7E; width: 70%;">Download
 						Data</button>
 				</p>
@@ -121,54 +112,87 @@
 
 	</div>
 </body>
-
 <script type="text/javascript">
-		$(function() {
-			  $('#graph').highcharts({
-			    chart: {
-			      type: 'bar'
-			    },
-			    title: {
-			      text: ''
-			    },
-			    xAxis: {
-			      categories: [""] 
-			    },
-			    yAxis: {
-			      min: 0,
-			      title: {
-			        text: ''
-			      }
-			    },
-			    legend: {
-			      reversed: true
-			    },
-			    plotOptions: {
-			      series: {
-			        stacking: 'normal'
-			      },
-			      bar: {
-		                dataLabels: {
-		                    enabled: true
-		                }
-		            }
-			    },
-			    exporting: { enabled: false },
-			    tooltip: { enabled: false },
-			    credits: {
-			        enabled: false
-			    },
-			    series: [
-						    {
-			      name: 'I am lost',
-			      data: [<?php echo $poll_data->getNumberOfStudentsLost();?>] 
-			    },{
-			      name: 'I got it',
-			      data: [<?php echo $poll_data->getNumberOfStudentsGotIt();?>]
-			    }]
-			  });
-			});
+var graph = {
+	    chart: {
+	    	 events : {
+	                load : function () {
 
+	                    // set up the updating of the chart each second
+	                    var numberOfStudentsGotIt = this.series[0].data[0];
+	                    var numberOfStudentsLost = this.series[1].data[0];
 
+		                setInterval(function () {
+	                    	$.get('teacher/data', function(data, status){
+								var numberOfStudentsGotItValue = parseFloat(data.split(",")[0]);
+								var numberOfStudentsLostValue = parseFloat(data.split(",")[1]);
+		                    	
+	                    		numberOfStudentsGotIt.update(numberOfStudentsGotItValue);
+	                    		numberOfStudentsLost.update(numberOfStudentsLostValue);
+	                    		
+								// update smiley
+								if ((numberOfStudentsGotItValue >= 0 && numberOfStudentsLostValue == 0) || numberOfStudentsGotItValue / (numberOfStudentsGotItValue + numberOfStudentsLostValue) > 0.85) {
+									document.getElementById("happy").style.display='block';
+									document.getElementById("neutral").style.display='none';
+									document.getElementById("sad").style.display='none';
+								} else if (numberOfStudentsGotItValue != 0 && numberOfStudentsLostValue != 0 && numberOfStudentsGotItValue / (numberOfStudentsGotItValue + numberOfStudentsLostValue) > 0.5) {
+									document.getElementById("happy").style.display='none';
+									document.getElementById("neutral").style.display='block';
+									document.getElementById("sad").style.display='none';
+								} else {
+									document.getElementById("happy").style.display='none';
+									document.getElementById("neutral").style.display='none';
+									document.getElementById("sad").style.display='block';
+								}
+								
+	                    		
+	                    	});
+
+	                    }, 1000);
+	                }
+	            },
+		      type: 'bar'
+		    },
+		    title: {
+		      text: ''
+		    },
+		    xAxis: {
+		      categories: [""] 
+		    },
+		    yAxis: {
+		      min: 0,
+		      title: {
+		        text: ''
+		      }
+		    },
+		    legend: {
+		      reversed: true
+		    },
+		    plotOptions: {
+		      series: {
+		        stacking: 'normal'
+		      },
+		      bar: {
+	                dataLabels: {
+	                    enabled: true
+	                }
+	            }
+		    },
+		    exporting: { enabled: false },
+		    tooltip: { enabled: false },
+		    credits: {
+		        enabled: false
+		    },
+		    series: [
+					    {
+		      name: 'I am lost',
+		      data: [0] 
+		    },{
+		      name: 'I got it',
+		      data: [0]
+		    }]
+		  };
+
+		  $('#graph').highcharts(graph);
 </script>
 </html>

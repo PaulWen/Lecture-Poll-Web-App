@@ -54,10 +54,10 @@ class poll_data_object extends abstract_data_object {
 	}
 	
 	//Name file is supposed to be given in format: "ict1.csv" 
-	public function downloadResult($pollname){
+	public function downloadResult(){
 		// output headers so that the file is downloaded rather than displayed
 		header('Content-Type: text/csv; charset=utf-8');
-		header('Content-Disposition: attachment; filename= {$pollname}');
+		header('Content-Disposition: attachment; filename=' . $this->getPollName() . '.csv');
 		
 		// create a file pointer connected to the output stream
 		$output = fopen('php://output', 'w');

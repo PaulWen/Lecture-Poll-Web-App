@@ -18,4 +18,15 @@ class teacher extends abstract_controller {
 			return false;
 		}
 	}
+	
+	public function downloadCsvFile() {
+		$poll_data = new poll_data_object ( $_SESSION ["pollCode"] );
+		$poll_data->downloadResult();
+	}
+
+	public function data() {
+		$poll_data = new poll_data_object ( $_SESSION ["pollCode"] );
+		
+		echo $poll_data->getNumberOfStudentsGotIt() . "," . $poll_data->getNumberOfStudentsLost();
+	}
 }
