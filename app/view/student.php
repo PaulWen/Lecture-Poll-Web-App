@@ -31,27 +31,27 @@
   	?>
  
     <div class="container">
-     <div style="width:60%;" class="col-xs-10 col-xs-offset-2">
+     <div>
        <div class="row">
-      		<div class="col-xs-12">
+      		<div class="col-sm-12">
        <br>
       		</div>
       		</div>
        		<h1 class="text-center"><?php echo $poll_data->getPollName(); ?></h1>
        <div class="row">
-      		<div class="col-xs-offset-4 col-xs-4">
-      			<img id="current_status" src="res/img/happy_smiley.jpg" class="img-responsive" alt="I got it!">
+      		<div class="col-sm-offset-4 col-sm-4">
+      			<img id="current_status" src="res/img/happy_smiley.png" class="img-responsive" alt="I got it!">
       		</div>
 	 	</div>
 	 <br>
      <div class="row">
      	<form onsubmit="submit_rating(0); return false;">
-	      	<div class="col-xs-5">
+	      	<div class="col-sm-5">
 	      		<button type="submit" class="btn btn-success btn-lg btn-block">I got it!</button>
 	      	</div>
      	</form>
      	<form onsubmit="submit_rating(1); return false;">
-	      	<div class="col-xs-5 col-xs-offset-2">
+	      	<div class="col-sm-5 col-sm-offset-2">
 	      		<button type="submit" class="btn btn-danger btn-lg btn-block">I am lost!</button>
 	      	</div>
      	</form>
@@ -68,9 +68,9 @@
 		    $.post('student/rate', {'rating':value});
 
 		    if (value == 0) {
-		    	$("#current_status").attr("src", "res/img/happy_smiley.jpg");
+		    	$("#current_status").attr("src", "res/img/happy_smiley.png");
 		    } else {
-		    	$("#current_status").attr("src", "res/img/sad_smiley.jpg");
+		    	$("#current_status").attr("src", "res/img/sad_smiley.png");
 			}    
 		}
 	</script>

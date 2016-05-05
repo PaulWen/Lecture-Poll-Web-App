@@ -37,23 +37,23 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-sm-12">
 				<h1 class="text-center"><?php echo $poll_data->getPollName();?></h1>
 			</div>
 		</div>
 
 		<div class="row" style="margin-top:15px">
 			<div class="col-xs-2 col-xs-offset-5">
-				<img id="happy" class="img-responsive center-block" alt="Happy" src="res/img/happy_smiley.jpg" style="display:none">
-				<img id="neutral" class="img-responsive center-block" alt="Neutral" src="res/img/neutral_smiley.jpg" style="display:none">
-				<img id="sad" class="img-responsive center-block" alt="Sad" src="res/img/sad_smiley.jpg" style="display:none">
+				<img id="happy" class="img-responsive center-block" alt="Happy" src="res/img/happy_smiley.png" style="display:none">
+				<img id="neutral" class="img-responsive center-block" alt="Neutral" src="res/img/neutral_smiley.png" style="display:none">
+				<img id="sad" class="img-responsive center-block" alt="Sad" src="res/img/sad_smiley.png" style="display:none">
 			</div>
 		</div>
 
 
 		<!-- display bar chart -->
 		<div class="row">
-			<div class="col-xs-8 col-xs-offset-2">
+			<div class="col-sm-8 col-sm-offset-2">
 		<div id="graph"
 			style="min-width: 310px; max-width: 800px; height: 250px; margin: 0 auto; margin-top:20px"></div>
 
@@ -65,7 +65,7 @@
 		<hr
 			style="border-width: 1px 1px 0; border-style: solid; border-color: GREY; margin-top: 30px; margin-bottom: 10px; width: 80%;">
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-sm-12">
 				<p class="text-center">
 					<button type="button" class="btn btn-info btn-lg"
 						style="background-color: #2B547E; border-color: #2B547E; width: 70%;"
@@ -74,7 +74,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-sm-12">
 				<p class="text-center">
 					<button onClick="window.open('teacher/downloadCsvFile','Download');" type="button" class="btn btn-info btn-lg"
 						style="background-color: #2B547E; border-color: #2B547E; width: 70%;">Download
@@ -83,7 +83,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-12">
+			<div class="col-sm-12">
 				<form action="teacher/closePoll" method="post">
 					<p class="text-center">
 						<button type="submit" class="btn btn-info btn-lg"
@@ -99,13 +99,13 @@
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="row">
-						<div class="col-xs-12">
+						<div class="col-sm-12">
 							<h3 class="text-center">Teacher Code</h3>
 							<p class="text-center"><?php echo $poll_data->getTeacherPollCode(); ?></p>
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-12">
+						<div class="col-sm-12">
 							<h3 class="text-center">Student Code</h3>
 							<p class="text-center"><?php echo $poll_data->getStudentPollCode(); ?></p>
 						</div>
@@ -136,7 +136,7 @@ var graph = {
 	                    	$.get('teacher/data', function(data, status){
 								var numberOfStudentsGotItValue = parseFloat(data.split(",")[0]);
 								var numberOfStudentsLostValue = parseFloat(data.split(",")[1]);
-		                    	
+
 	                    		numberOfStudentsGotIt.update(numberOfStudentsGotItValue);
 	                    		numberOfStudentsLost.update(numberOfStudentsLostValue);
 	                    		

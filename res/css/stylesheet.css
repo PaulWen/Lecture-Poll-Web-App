@@ -13,12 +13,50 @@
 	opacity: 1;
 }
 
-.panel {
-	background-color: rgba(255, 255, 255, 0.8);
-	width: 50%;
-	height: 100%;
-	padding: 1.5em;
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) {
+	.panel {
+		background-color: rgba(255, 255, 255, 0.8);
+		width: 50%;
+		height: 100%;
+		overflow: auto;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 15px;
+	}
+
 }
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+	.panel {
+		background-color: rgba(255, 255, 255, 0.8);
+		width: 75%;
+		height: 100%;
+		overflow: auto;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 15px;
+	}
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) {
+	.panel {
+		background-color: rgba(255, 255, 255, 0.8);
+		width: 85%;
+		height: 100%;
+		overflow: auto;
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		padding: 15px;
+	}
+}
+
 
 .form-panel {
 	overflow: hidden;
@@ -73,17 +111,17 @@
 }
 
 .login span:before {
-	width: 200px;
+	width: 100vw;
 }
 
 .login span:after {
-	width: 500px;
+	width: 100vw;
 }
 
 .create span:before {
-	width: 200px;
+	width: 100vw;
 }
 
 .create span:after {
-	width: 500px;
+	width: 100vw;
 }

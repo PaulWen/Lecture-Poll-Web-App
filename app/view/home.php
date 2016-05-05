@@ -35,7 +35,7 @@
 	<br>
 
 	<div class="container">
-		<div class="panel col-xs-offset-3 col-xs-8">
+		<div class="panel">
 			<div class="form-panel">
 				<br>
 				<h1 class="text-center">Welcome to the Lecture Poll!</h1>
