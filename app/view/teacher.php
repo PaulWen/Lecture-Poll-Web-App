@@ -129,8 +129,8 @@ var graph = {
 	                load : function () {
 
 	                    // set up the updating of the chart each second
-	                    var numberOfStudentsGotIt = this.series[0].data[0];
-	                    var numberOfStudentsLost = this.series[1].data[0];
+	                    var numberOfStudentsGotIt = this.series[1].data[0];
+	                    var numberOfStudentsLost = this.series[0].data[0];
 
 		                setInterval(function () {
 	                    	$.get('teacher/data', function(data, status){
