@@ -19,7 +19,7 @@ function errorMessage($errorcode, $errortext, $errorfile, $errorline) {
 }
 
 // either "errorMessage" or "errorPage" according to the function that should get called
-set_error_handler("errorMessage");
+set_error_handler("errorPage");
 
 
 ///////////////////////load  all nessesary files///////////////////////
